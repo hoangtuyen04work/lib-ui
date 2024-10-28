@@ -1,0 +1,39 @@
+.search-bar-wrapper {
+  display: flex;
+  align-items: center;
+  position: relative;
+
+  .search-bar {
+    padding: 8px 12px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    width: 250px;
+    margin-right: 10px;  // Reduced margin-right to align better with the icon
+    transition: border-color 0.2s ease;
+
+    &:focus {
+      border-color: #007bff;
+      outline: none;
+    }
+  }
+
+  .search-btn {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    padding: 0;
+
+    &:hover {
+      color: #e8edf3;
+    }
+
+    .search-icon {
+      font-size: 1.5rem;
+
+    }
+  }
+}

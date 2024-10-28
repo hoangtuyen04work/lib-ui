@@ -1,0 +1,31 @@
+.notification-dropdown {
+    position: relative;
+    right: 270px !important; 
+    top: 60px !important; 
+    background-color: rgb(233, 8, 8); /* Đảm bảo có màu nền để nhìn thấy nó */
+    border: 1px solid #ddd;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    border-radius: 5px;
+    width: 300px;
+    max-height: 700px;
+    z-index: 100;
+    display: block !important;
+    padding: 10px;
+    list-style: none;
+    margin: 0;
+  
+    li {
+      padding: 10px;
+      border-bottom: 1px solid #ddd;
+      transition: background-color 0.2s ease;
+  
+      &:last-child {
+        border-bottom: none;
+      }
+  
+      &:hover {
+        background-color: #6a6969;
+      }
+    }
+  }
+  

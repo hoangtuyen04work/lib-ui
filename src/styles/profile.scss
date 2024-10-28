@@ -1,0 +1,61 @@
+.profile {
+    overflow: auto; // Ẩn toàn bộ thanh cuộn
+    
+    .profile-page {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 20px;
+        background-color: #f4f4f4;
+        min-height: 100vh; // Đảm bảo trang chiếm ít nhất chiều cao của viewport
+        font-family: 'Arial', sans-serif; // Đặt font đẹp
+
+        .profile-header {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 20px;
+
+            .profile-image {
+                border-radius: 50%;
+                width: 150px;
+                height: 150px;
+                margin-bottom: 10px;
+                border: 2px solid #007bff;
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); // Thêm bóng cho chiều sâu
+                transition: transform 0.3s; // Hiệu ứng hover mượt mà
+
+                &:hover {
+                    transform: scale(1.05); // Tăng kích thước một chút khi hover
+                }
+            }
+
+            h2 {
+                font-size: 2.5rem; // Tăng kích thước font cho tên
+                margin: 10px 0;
+                color: #333; // Màu tối hơn cho độ tương phản
+            }
+
+            p {
+                color: #666;
+                font-size: 1.1rem; // Tăng kích thước font một chút cho dễ đọc
+            }
+        }
+
+        .profile-info {
+            background-color: #fff;
+            padding: 20px; // Tăng padding cho bố cục tốt hơn
+            border-radius: 10px; // Góc bo tròn hơn
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); // Bóng rõ ràng hơn
+            width: 100%; // Đảm bảo chiều rộng đầy đủ cho hộp thông tin
+            max-width: 600px; // Giới hạn chiều rộng tối đa cho màn hình lớn hơn
+            text-align: center; // Căn giữa văn bản cho diện mạo sạch sẽ
+
+            p {
+                margin: 10px 0; // Tăng khoảng cách cho không gian tốt hơn
+                font-size: 1.3rem; // Tăng kích thước font cho dễ đọc
+                color: #444; // Màu tối hơn cho độ tương phản
+            }
+        }
+    }
+}
