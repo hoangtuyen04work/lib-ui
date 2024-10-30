@@ -1,39 +1,153 @@
-.search-bar-wrapper {
+.header {
+  background-color: #343a40; // Dark background color
+  color: white;
+  padding: 1rem 2rem; // Adds padding around the header
   display: flex;
+  justify-content: space-between;
   align-items: center;
-  position: relative;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); // Adds a shadow effect
 
-  .search-bar {
-    padding: 8px 12px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    width: 250px;
-    margin-right: 10px;  // Reduced margin-right to align better with the icon
-    transition: border-color 0.2s ease;
+  .logo {
+    font-size: 28px; // Increases the logo size
+    font-weight: bold;
+    transition: color 0.3s; // Adds a color transition effect
+    cursor: pointer;
 
-    &:focus {
-      border-color: #007bff;
-      outline: none;
+    &:hover {
+      color: #f8f9fa; // Changes color on hover
     }
   }
 
-  .search-btn {
-    background-color: transparent;
-    border: none;
+  .category-select {
+    padding: 0.5rem;
+    border-radius: 4px; // Adds rounded corners
+    border: 1px solid #6c757d; // Border color
+    background-color: #495057; // Background color
+    color: white; // Text color
     cursor: pointer;
-    position: absolute;
-    right: 10px;
-    top: 50%;
-    transform: translateY(-50%);
-    padding: 0;
 
-    &:hover {
-      color: #e8edf3;
+    &:focus {
+      outline: none; // Removes focus outline
+      border-color: #80bdff; // Border color on focus
+      background-color: #495057; // Background color on focus
+    }
+  }
+
+  .search-bar-wrapper {
+    display: flex;
+    align-items: center;
+    position: relative;
+
+    .search-bar {
+      width: 250px; // Sets search bar width
+      padding: 8px 12px;
+      border-radius: 5px; // Adds rounded corners
+      border: 1px solid #ddd; // Border color
+      background-color: #495057; // Background color
+      color: white; // Text color
+      margin-right: 10px; // Adjusts margin
+      transition: border-color 0.2s ease;
+
+      &:focus {
+        border-color: #007bff; // Border color on focus
+        outline: none; // Removes focus outline
+      }
     }
 
-    .search-icon {
-      font-size: 1.5rem;
+    .search-btn {
+      background-color: transparent;
+      border: none;
+      cursor: pointer;
+      position: absolute;
+      right: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+      padding: 0;
 
+      &:hover {
+        color: #e8edf3; // Changes color on hover
+      }
+
+      .search-icon {
+        font-size: 1.5rem; // Sets icon size
+      }
+    }
+  }
+
+  .user-controls {
+    display: flex;
+    gap: 1rem;
+    align-items: center; // Aligns icons with other buttons
+
+    .notification-btn {
+      position: relative; // Positions notification count
+      background: none;
+      border: 1px solid #6c757d; // Adds border
+      border-radius: 4px; // Adds rounded corners
+      cursor: pointer;
+      color: white;
+      font-size: 1.5rem; // Sets icon size
+      padding: 0.5rem; // Adds padding
+
+      &:hover {
+        color: #f8f9fa; // Changes color on hover
+        border-color: #f8f9fa; // Changes border color on hover
+      }
+
+      .notification-count {
+        position: absolute;
+        top: -5px;
+        right: -10px;
+        background-color: red;
+        color: white;
+        border-radius: 50%;
+        padding: 0.2rem 0.5rem;
+        font-size: 0.8rem;
+      }
+    }
+
+    .profile-btn, .logout-btn {
+      background-color: #6c757d;
+      color: white;
+      border: 1px solid #6c757d; // Adds border
+      border-radius: 4px; // Adds rounded corners
+      padding: 0.5rem 1rem;
+      cursor: pointer;
+      transition: background-color 0.3s, border-color 0.3s; // Adds transition effects
+
+      &:hover {
+        background-color: #5a6268; // Changes background color on hover
+        border-color: #5a6268; // Changes border color on hover
+      }
+    }
+
+    .notification-dropdown {
+      display: none;
+      position: absolute;
+      background-color: #343a40;
+      border: 1px solid #6c757d;
+      padding: 1rem;
+      width: 30vw;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      z-index: 1000;
+
+      div {
+        color: white;
+        padding: 0.5rem 0;
+        border-bottom: 1px solid #495057;
+
+        &:last-child {
+          border-bottom: none;
+        }
+
+        &:hover {
+          background-color: #495057; // Changes background color on hover
+        }
+      }
+    }
+
+    .notification-btn.active + .notification-dropdown {
+      display: block; // Displays dropdown when button is active
     }
   }
 }

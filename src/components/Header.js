@@ -11,13 +11,8 @@ const Header = ({ onCategoryChange, onSearchChange }) => {
   const location = useLocation();
   const [search, setSearch] = useState('');
   const [listCategory, setListCategory] = useState([]);
-  const [notifications] = useState([
-    "New book added: 'JavaScript Basics'",
-    "Discount on Fiction books!",
-    "Your friend has joined the library!"
-  ]);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-
+  const [numberNotification, setNumberNotification] = useState(1);
   // Handle search submit when the search icon is clicked
   const handleSearchSubmit = async () => {
     if (search.trim() !== "") {
@@ -59,6 +54,7 @@ const Header = ({ onCategoryChange, onSearchChange }) => {
       navigate('/home');
     }
   };
+
 
   useEffect(() => {
     const getAllType = async () => {
@@ -111,17 +107,13 @@ const Header = ({ onCategoryChange, onSearchChange }) => {
       <div className="user-controls">
         <button className="notification-btn" onClick={toggleDropdown}>
           <FontAwesomeIcon icon={faBell} />
-          {notifications.length > 0 && (
-            <span className="notification-count">{notifications.length}</span>
+          {numberNotification.length > 0 && (
+            <span className="notification-count">{numberNotification.length}</span>
           )}
         </button>
 
         <NotificationDropdown
-          notifications={notifications}
           isOpen={isDropdownOpen}
-          onNotificationClick={(notification) =>
-            console.log("Clicked notification:", notification)
-          }
         />
 
         <button className="profile-btn" onClick={() => window.location.href = '/profile'}>

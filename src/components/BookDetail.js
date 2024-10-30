@@ -98,6 +98,8 @@ const BookDetail = () => {
   const handleSubmitReview = async (e) => {
     e.preventDefault();
     const userId = localStorage.getItem('id');
+    const userName = localStorage.getItem('name');
+    console.log(userName)
     try {
       const response = await axios.post(
         `http://localhost:8888/lib/rating/rate`,
@@ -105,7 +107,8 @@ const BookDetail = () => {
           userId: userId,
           bookId: id,
           rating: rating,
-          comment: comment
+          comment: comment,
+          userName: userName
         },
         {
           headers: {
@@ -115,7 +118,7 @@ const BookDetail = () => {
       );
 
       if (response.data.data) {
-        setReviews([...reviews, { userId, rating, comment }]);
+        setReviews([...reviews, { userId, rating, comment, userName }]);
       } else {
         console.error('Error submitting review');
       }
@@ -184,8 +187,8 @@ const BookDetail = () => {
         <ul>
           {reviews.map((review, index) => (
             <li key={index}>
-              <strong>{review.userId}:</strong> {review.comment} <br />
-              <strong>Rating:</strong> {review.rating} ★
+              <strong>Rating:</strong> {review.rating} ★<br/>
+              <strong>{review.userName}:</strong> {review.comment} <br />
             </li>
           ))}
         </ul>
