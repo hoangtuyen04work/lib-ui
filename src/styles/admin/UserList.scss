@@ -1,35 +1,65 @@
-/* Đảm bảo rằng html và body chiếm toàn bộ chiều cao màn hình */
-html,
-body {
-  height: 100%;
-  margin: 0;
-  padding: 0;
-}
+.user-list {
+  background-color: #f4f6f9;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(194, 168, 168, 0.1);
+  margin: 20px 40px;
 
-.admin-books {
-  display: flex;
-  flex-direction: column;
-  height: 100vh;
+  h2 {
+    font-size: 1.8rem;
+    color: #2c3e50;
+    margin-bottom: 20px;
+  }
 
+  .header-body {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); /* Sử dụng grid để tạo 4 cột đều */
+    font-weight: bold;
+    padding: 10px 0;
+    border-bottom: 2px solid #ecf0f1;
 
-  /* Main content chiếm toàn bộ không gian giữa header và footer */
-  .main-content {
-    display: flex;
-    flex-direction: row;
-    flex: 1;
-    position: relative;
-    flex-grow: 1;
-    overflow: auto;
-
-    /* Để cuộn nội dung khi cần */
-    /* Content Body Styles */
-    .content-body {
-      flex-grow: 1;
-      padding: 1rem;
-      overflow: auto;
-      transition: margin-left 0.3s ease;
-      /* Smooth transition */
+    .header-item {
+      text-align: center;
+      color: #7f8c8d;
     }
   }
 
+  ul {
+    list-style-type: none;
+    padding: 0;
+
+    li {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr); /* Sử dụng grid để đảm bảo các cột trong mỗi dòng thẳng hàng */
+      background-color: white;
+      margin-bottom: 10px;
+      padding: 15px;
+      border-radius: 6px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      transition: background-color 0.3s ease;
+
+      &:hover {
+        background-color: #ecf0f1;
+      }
+
+      .item-name,
+      .item-email,
+      .item-phone,
+      .item-createdAt {
+        text-align: center;
+        font-size: 0.9rem;
+        color: #34495e;
+      }
+
+      .item-name {
+        font-weight: bold;
+      }
+
+      .item-actions {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+    }
+  }
 }

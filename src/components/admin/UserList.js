@@ -2,31 +2,31 @@ import React, { useEffect, useState } from 'react';
 import '../../styles/admin/UserList.scss';
 
 function UserList() {
-  const [recentBooks, setRecentBooks] = useState([]);
+  const [recentUsers, setRecentUsers] = useState([]);
 
   useEffect(() => {
     const books = [
-      { id: 1, image: 'download.jpg', name: 'Sách 1', email: "@gmail.com", phone: "0020202", createdAt: "22/10/2004", numberBorrowed: 222, numberReturned: 209 }
+      { id: 1, image: 'download.jpg', name: 'User1', email: "@gmail.com", phone: "0020202", createdAt: "22/10/2004"}
     ];
-    setRecentBooks(books);
+    setRecentUsers(books);
   }, []);
 
   return (
-    <div className="action-list">
+    <div className="user-list">
       <h2>Danh sách sách</h2>
       <div className="header-body">
-        <div className="header-item">Tên sách</div>
-        <div className="header-item">Tác giả</div>
-        <div className="header-item">Tổng sách</div>
-        <div className="header-item">Số lượng còn</div>
+        <div className="header-item">Name</div>
+        <div className="header-item">Email</div>
+        <div className="header-item">Phone</div>
+        <div className="header-item">createdAt</div>
       </div>
       <ul>
-        {recentBooks.map(book => (
-          <li key={book.id}>
-            <div className="item-title">{book.title}</div>
-            <div className="item-borrower">{book.author}</div>
-            <div className="item-type">{book.totalNumber}</div>
-            <div className="item-time">{book.stock}</div>
+        {recentUsers.map(user => (
+          <li key={user.id}>
+            <div className="item-name">{user.name}</div>
+            <div className="item-email">{user.email}</div>
+            <div className="item-phone">{user.phone}</div>
+            <div className="item-createdAt">{user.createdAt}</div>
           </li>
         ))}
       </ul>

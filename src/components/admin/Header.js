@@ -9,9 +9,9 @@ function Header({ toggleSidebar }) {
   };
   return (
     <header className="header-admin">
-      <button onClick={toggleSidebar} className="sidebar-toggle">
+      {/* <button onClick={toggleSidebar} className="sidebar-toggle">
         ☰
-      </button>
+      </button> */}
       <img src="/xxx.jpg" alt="Library Logo" className="header-logo" />
       <h1 className="panel" onClick={handlePanelClick}>Manage Library</h1>
       

@@ -93,11 +93,12 @@ function BookList() {
         </button>
       </div>
       <div className="header-body">
-        <div className="header-item">Tên sách</div>
-        <div className="header-item">Tác giả</div>
-        <div className="header-item">Giá</div>
-        <div className="header-item">Ngôn ngữ</div>
-        <div className="header-item">Hành động</div>
+        <div className="header-item">Name</div>
+        <div className="header-item">Author</div>
+        <div className="header-item">Price</div>
+        <div className="header-item">Language</div>
+        <div className="header-item">Stock</div>
+        <div className="header-item">Action</div>
       </div>
       <ul>
         {recentBooks.map((book) => (
@@ -106,6 +107,8 @@ function BookList() {
             <div className="item-author">{book.author}</div>
             <div className="item-price">{book.price} VND</div>
             <div className="item-language">{book.language}</div>
+            <div className="item-stock">{book.numberInstock} </div>
+            
             <div className="item-actions">
               <button onClick={() => handleEditBook(book.id)}>Sửa</button>
               <button onClick={() => handleDeleteBook(book.id)}>Xóa</button>

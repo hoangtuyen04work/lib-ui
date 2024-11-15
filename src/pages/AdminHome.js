@@ -20,7 +20,6 @@ function AdminHome() {
           <ActionList />
         </div>
       </div>
-
     </div>
   );
 }

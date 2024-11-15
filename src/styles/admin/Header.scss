@@ -1,87 +1,87 @@
 .header-admin {
-    display: flex;
-    flex-direction: row;
-    background-color: rgb(143, 221, 255);
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px 20px;
-    height: 10%;
-    
-    .sidebar-toggle {
-      margin-left: 1rem;
-      height: 30px;
-      width: 30px;
-      cursor: pointer;
-    }
-  
-    .header-logo {
-      height: 60px;
-      width: 60px;
-      border-radius: 50%;
-    }
-  
-    .panel {
-      cursor: pointer;
-      font-size: 30px;
-      
-    }
-  
-    .search-input {
+  display: flex;
+  flex-direction: row;
+  background-color: rgb(143, 221, 255);
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  height: 10%;
+
+  .sidebar-toggle {
+    margin-left: 1rem;
+    height: 30px;
+    width: 30px;
     cursor: pointer;
-      flex: 1;
-      max-width: 300px;
-      padding: 8px 12px;
-      border: 1px solid #ccc;
+  }
+
+  .header-logo {
+    height: 60px;
+    width: 60px;
+    border-radius: 50%;
+    margin-left: 50px;
+  }
+
+  .panel {
+    cursor: pointer;
+    font-size: 30px;
+
+  }
+
+  .search-input {
+    cursor: pointer;
+    flex: 1;
+    max-width: 300px;
+    padding: 8px 12px;
+    border: 1px solid #ccc;
+    border-radius: 20px;
+    outline: none;
+    font-size: 16px;
+    color: #333;
+    background-color: #f0f0f0;
+
+    &:focus {
+      border-color: #007acc;
+    }
+  }
+
+  .header-right {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+
+    .logout-button {
+      padding: 8px 16px;
+      border: none;
+      background-color: #ff6666;
+      color: white;
       border-radius: 20px;
-      outline: none;
       font-size: 16px;
-      color: #333;
-      background-color: #f0f0f0;
-  
-      &:focus {
-        border-color: #007acc;
+      cursor: pointer;
+      transition: background-color 0.3s;
+
+      &:hover {
+        background-color: #ff4c4c;
       }
     }
-  
-    .header-right {
+
+    .profile {
       display: flex;
       align-items: center;
-      gap: 20px;
-  
-      .logout-button {
-        padding: 8px 16px;
-        border: none;
-        background-color: #ff6666;
-        color: white;
-        border-radius: 20px;
-        font-size: 16px;
-        cursor: pointer;
-        transition: background-color 0.3s;
-  
-        &:hover {
-          background-color: #ff4c4c;
-        }
+      gap: 10px;
+
+      .profile-pic {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        border: 2px solid #ccc;
+        color: #333;
+        background-color: #7d6edf;
       }
-  
-      .profile {
-        display: flex;
-        align-items: center;
-        gap: 10px;
-  
-        .profile-pic {
-          width: 40px;
-          height: 40px;
-          border-radius: 50%;
-          border: 2px solid #ccc;
-          color: #333;
-          background-color: #7d6edf;
-        }
-  
-        .profile-name {
-          font-size: 16px;
-          color: #333;
-        }
+
+      .profile-name {
+        font-size: 16px;
+        color: #333;
       }
     }
   }
-  
+}
