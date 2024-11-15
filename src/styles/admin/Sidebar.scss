@@ -3,6 +3,7 @@
   position: relative;
   left: -200px;
   width: 200px;
+  min-width: 100px;
   padding-top: 20px;
   transition: left 0.3s ease, width 0.3s ease;
   z-index: 100;
@@ -49,17 +50,3 @@
 }
 
 
-@media (max-width: 768px) {
-  .sidebar {
-    width: 150px;
-    padding: 0.8rem;
-
-    .a-sidebar {
-      font-size: 16px;
-
-      .icon-sidebar {
-        font-size: 16px;
-      }
-    }
-  }
-}

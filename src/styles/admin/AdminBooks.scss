@@ -26,11 +26,14 @@ body {
       transition: margin-left 0.3s ease;
       /* Smooth transition */
 
-      .sidebar {
-        transform: translateX(-100%);
-        &.open {
-          transform: translateX(0);
-        }
+      &.sidebar-open {
+        margin-left: 200px;
+        /* Khoảng cách khi Sidebar mở */
+      }
+
+      &.sidebar-closed {
+        margin-left: 0;
+        /* Không khoảng cách khi Sidebar đóng */
       }
       
     }
