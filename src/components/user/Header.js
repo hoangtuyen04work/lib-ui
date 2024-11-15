@@ -1,12 +1,17 @@
 import React, { useEffect, useState } from 'react';
-import '../styles/header.scss';
+import axios from 'axios';
+
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBell, faSearch } from '@fortawesome/free-solid-svg-icons';
-import NotificationDropdown from './NotificationDropdown';
-import axios from 'axios';
-import { useNavigate, useLocation } from 'react-router-dom';
 
+import { useNavigate, useLocation } from 'react-router-dom';
+import { Client } from '@stomp/stompjs';
+
+import NotificationDropdown from './NotificationDropdown';
+import '../../styles/user/Header.scss';
+import SockJS from 'sockjs-client';
 const Header = ({ onCategoryChange, onSearchChange }) => {
+  const [notifications, setNotifications] = useState([]);
   const navigate = useNavigate();
   const location = useLocation();
   const [search, setSearch] = useState('');
@@ -45,12 +50,11 @@ const Header = ({ onCategoryChange, onSearchChange }) => {
   const toggleDropdown = () => {
     setIsDropdownOpen((prev) => !prev);
   };
+
   const handleClick = () => {
     if (location.pathname === '/home') {
-      // Force reload if already on the homepage
       window.location.reload();
     } else {
-      // Navigate to home if on a different page
       navigate('/home');
     }
   };
@@ -71,6 +75,31 @@ const Header = ({ onCategoryChange, onSearchChange }) => {
       }
     };
     getAllType();
+    const token = localStorage.getItem('token');
+    const userId = localStorage.getItem('id');
+    const socket = new SockJS('http://localhost:8087/notify/notify/websocket', null, {
+      withCredentials: true,
+    });
+
+    const client = new Client({
+      webSocketFactory: () => socket,
+      connectHeaders: {
+        Authorization: `Bearer ${token}`,
+      },
+      onConnect: () => {
+        client.subscribe(`/notify/receiver/${userId}`, (response) => {
+          const notificationReceive = JSON.parse(response.body);
+          console.log("data", notificationReceive.data)
+          setNotifications((prev) => [...prev, notificationReceive.data]);
+        });
+      },
+      onStompError: (frame) => {
+        console.error(`Broker error: ${frame.headers['message']}`, frame.body);
+      },
+    });
+
+    client.activate();
+    return () => client.deactivate();
   }, []);
 
   return (
@@ -112,7 +141,7 @@ const Header = ({ onCategoryChange, onSearchChange }) => {
           )}
         </button>
 
-        <NotificationDropdown
+        <NotificationDropdown notifications={notifications}
           isOpen={isDropdownOpen}
         />
 

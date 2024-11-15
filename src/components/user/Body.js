@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import '../styles/home.scss';
+import '../../styles/user/UserHome.scss';
 import axios from 'axios';
 import BookItem from './BookItem'; // Import the new BookItem component
 

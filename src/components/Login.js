@@ -15,18 +15,19 @@ const Login = () => {
       console.log(email);
       console.log(password);
       const response = await axios.post('http://localhost:8888/lib/auth/login', { email, password });
-      // Lưu token, refreshToken và email vào localStorage sau khi đăng nhập thành công
-      console.log(response);
-      const { token, refreshToken, email: responseEmail, imageUrl, name, id} = response.data.data;  // Đổi tên email thành responseEmail
+      const { token, refreshToken, email: responseEmail, imageUrl, name, id, roles} = response.data.data;
       
       localStorage.setItem('token', token);
       localStorage.setItem('refreshToken', refreshToken);
       localStorage.setItem('email', responseEmail);  // Lưu email từ response vào localStorage
       localStorage.setItem('imageUrl', imageUrl);
       localStorage.setItem('name', name);
-      localStorage.setItem('id', id)
-      // Điều hướng tới trang chính
-      navigate('/home');
+      localStorage.setItem('id', id);
+      localStorage.setItem('role', roles);
+
+      if (roles.roleName === "ADMIN") navigate('/admin/home');
+      else navigate('/home');
+      
     } catch (error) {
       console.log(error);
       setError('Đăng nhập không thành công. Vui lòng kiểm tra lại thông tin.');

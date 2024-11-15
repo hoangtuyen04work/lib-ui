@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import '../styles/profile.scss';
+import '../../styles/user/Profile.scss';
 import Header from './Header';
 
 const Profile = () => {

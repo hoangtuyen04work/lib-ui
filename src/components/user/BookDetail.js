@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import '../styles/bookdetail.scss';
+import '../../styles/user/BookDetail.scss'
 import Header from './Header';
 import axios from 'axios';
 

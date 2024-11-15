@@ -1,0 +1,35 @@
+/* Đảm bảo rằng html và body chiếm toàn bộ chiều cao màn hình */
+html,
+body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+.admin-user {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+
+
+  /* Main content chiếm toàn bộ không gian giữa header và footer */
+  .main-content {
+    display: flex;
+    flex-direction: row;
+    flex: 1;
+    position: relative;
+    flex-grow: 1;
+    overflow: auto;
+
+    /* Để cuộn nội dung khi cần */
+    /* Content Body Styles */
+    .content-body {
+      flex-grow: 1;
+      padding: 1rem;
+      overflow: auto;
+      transition: margin-left 0.3s ease;
+      /* Smooth transition */
+    }
+  }
+
+}

@@ -31,24 +31,24 @@ const Register = () => {
     formData.append('name', name);
     formData.append('phone', phone);
     formData.append('multipartFile', file);
-    formData.append('roles', JSON.stringify(roles));  // Giả sử roles là danh sách
-    
+    formData.append('roles', roles);  // Giả sử roles là danh sách
     try {
       const response = await axios.post('http://localhost:8888/lib/auth/signup', formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
       });
-      console.log("res", response)
-      const { token, refreshToken, email: responseEmail, imageUrl, name, id} = response.data.data;      
+      const { token, refreshToken, email: responseEmail, imageUrl, name, id, roles} = response.data.data;      
       localStorage.setItem('token', token);
       localStorage.setItem('refreshToken', refreshToken);
-      localStorage.setItem('email', responseEmail);  // Lưu email từ response vào localStorage
+      localStorage.setItem('email', responseEmail);
       localStorage.setItem('imageUrl', imageUrl);
       localStorage.setItem('name', name);
-      localStorage.setItem('id', id)
-      // Điều hướng tới trang chính
-      navigate('/home');
+      localStorage.setItem('id', id);
+      localStorage.setItem('roles', roles);
+
+      if (roles.roleName === "ADMIN") navigate('/admin/home');
+      else navigate('/home');
     } catch (error) {
       setError('Đăng ký không thành công.');
     }

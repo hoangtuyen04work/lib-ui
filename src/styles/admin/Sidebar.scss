@@ -1,0 +1,65 @@
+.sidebar {
+  background-color: rgb(143, 221, 255);
+  position: relative;
+  left: -200px;
+  width: 200px;
+  padding-top: 20px;
+  transition: left 0.3s ease, width 0.3s ease;
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  align-items: center;
+  &.open {
+    left: 0;
+  }
+
+  .a-sidebar {
+    display: flex;
+    align-items: center;
+    padding: 15px;
+    color: rgb(0, 0, 0);
+    text-decoration: none;
+    font-size: 18px;
+    transition: background-color 0.3s ease;
+
+    &:hover {
+      color: #0077ff;
+    }
+
+    &.active {
+      background-color: #1abc9c;
+    }
+
+    .icon-sidebar {
+      margin-right: 10px;
+      font-size: 18px;
+      color: inherit; /* Icon inherits the color of the link */
+    }
+  }
+}
+
+.sidebar.closed {
+  left: -200px;
+}
+
+.admin-home .sidebar.open + .content-body {
+  //margin-left: 200px;
+  transition: margin-left 0.3s ease;
+}
+
+
+@media (max-width: 768px) {
+  .sidebar {
+    width: 150px;
+    padding: 0.8rem;
+
+    .a-sidebar {
+      font-size: 16px;
+
+      .icon-sidebar {
+        font-size: 16px;
+      }
+    }
+  }
+}

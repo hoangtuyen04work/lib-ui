@@ -1,6 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import '../styles/home.scss'; // Giữ nguyên nếu cần style
+import '../../styles/user/UserHome.scss'; // Giữ nguyên nếu cần style
 
 const BookItem = ({ book }) => {
   const navigate = useNavigate();

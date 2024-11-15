@@ -1,0 +1,57 @@
+.book-list {
+  background-color: #f4f6f9;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(194, 168, 168, 0.1);
+  margin: 20px;
+  padding: 20px;
+
+  .body-panel {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0 30px;
+    .body-add-book {
+      background-color: #3498db;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+  }
+
+  .header-body {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 2fr 1fr; /* Tỷ lệ các cột */
+    font-weight: bold;
+    background-color: #ddd;
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    margin-left: 40px;
+  }
+
+  li {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 2fr 1fr; /* Tỷ lệ phải giống với header */
+    padding: 10px;
+    background: #fff;
+    margin: 10px 0;
+    border-radius: 5px;
+    align-items: center;
+
+    .item-actions button {
+      margin: 0 5px;
+      padding: 5px 10px;
+      background: #e74c3c;
+      color: #fff;
+      border: none;
+      border-radius: 3px;
+      cursor: pointer;
+
+      &:first-child {
+        background: #3498db;
+      }
+    }
+  }
+}
