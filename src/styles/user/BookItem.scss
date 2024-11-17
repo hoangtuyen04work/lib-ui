@@ -1,0 +1,48 @@
+.book-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    cursor: pointer;
+    transition: transform 0.3s, box-shadow 0.3s;
+
+    &:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
+    }
+
+    .book-image-wrapper {
+        width: 100%;
+        height: 250px;
+        overflow: hidden;
+        background-color: #f0f0f0;
+
+        img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s;
+
+            &:hover {
+                transform: scale(1.05);
+            }
+        }
+    }
+
+    h3 {
+        font-size: 1.2rem;
+        margin: 15px 0;
+        text-align: center;
+        color: #333;
+    }
+
+    p {
+        font-size: 0.9rem;
+        margin-bottom: 10px;
+        color: #666;
+    }
+}

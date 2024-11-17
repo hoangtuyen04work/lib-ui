@@ -1,14 +1,24 @@
 import React, { useEffect, useState } from 'react';
 import '../../styles/admin/UserList.scss';
-
+import { useNavigate } from "react-router-dom";
+import { fetchUsersBasicData } from '../../service/adminApiService';
 function UserList() {
-  const [recentUsers, setRecentUsers] = useState([]);
+  const navigate = useNavigate();
+  const [users, setUsers] = useState([]);
+
+  const handleBookClick = (userId) => {
+    navigate(`/admin/user/${userId}`);
+  };
+
+  const fetchUserData = async () => {
+    const token = localStorage.getItem('token');
+    const response = await fetchUsersBasicData(token);
+    setUsers(prev => [...prev, ...response.data.data.content])
+  }
 
   useEffect(() => {
-    const books = [
-      { id: 1, image: 'download.jpg', name: 'User1', email: "@gmail.com", phone: "0020202", createdAt: "22/10/2004"}
-    ];
-    setRecentUsers(books);
+
+    fetchUserData();
   }, []);
 
   return (
@@ -21,8 +31,8 @@ function UserList() {
         <div className="header-item">createdAt</div>
       </div>
       <ul>
-        {recentUsers.map(user => (
-          <li key={user.id}>
+        {users.map(user => (
+          <li key={user.id} onClick={() => handleBookClick(user.id)} >
             <div className="item-name">{user.name}</div>
             <div className="item-email">{user.email}</div>
             <div className="item-phone">{user.phone}</div>

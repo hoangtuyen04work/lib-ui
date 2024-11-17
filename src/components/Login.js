@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import '../styles/login.scss';
-
+import {login} from '../service/authService'
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -14,7 +14,7 @@ const Login = () => {
     try {
       console.log(email);
       console.log(password);
-      const response = await axios.post('http://localhost:8888/lib/auth/login', { email, password });
+      const response = await login(email, password);
       const { token, refreshToken, email: responseEmail, imageUrl, name, id, roles} = response.data.data;
       
       localStorage.setItem('token', token);
@@ -23,11 +23,13 @@ const Login = () => {
       localStorage.setItem('imageUrl', imageUrl);
       localStorage.setItem('name', name);
       localStorage.setItem('id', id);
-      localStorage.setItem('role', roles);
-
-      if (roles.roleName === "ADMIN") navigate('/admin/home');
-      else navigate('/home');
-      
+      const roleNames = roles.map(role => role.roleName);
+      localStorage.setItem('role', JSON.stringify(roleNames)); // Lưu mảng roleNames vào localStorage
+      if (roleNames.includes('ADMIN')) {
+        navigate('/admin/home'); // Chuyển hướng đến trang admin
+      } else {
+        navigate('/home'); // Chuyển hướng đến trang thường
+      }
     } catch (error) {
       console.log(error);
       setError('Đăng nhập không thành công. Vui lòng kiểm tra lại thông tin.');

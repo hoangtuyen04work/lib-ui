@@ -1,13 +1,34 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "../../styles/admin/AddBook.scss";
 
 function AddBook({ isEditing, bookData, setBookData, onSubmit, onClose }) {
+  useEffect(() => {
+    if (!isEditing) {
+      setBookData({
+        id: '',
+        bookCode: '',
+        name: '',
+        publicationDate: '',
+        edition: '',
+        numberPage: '',
+        shortDescription: '',
+        price: '',
+        author: '',
+        imageUrl: '',
+        language: '',
+        numberBorrowed: 0,
+        numberInstock: 0,
+        categories: [],
+      });
+    }
+  }, [isEditing, setBookData]);
+
   const handleImageChange = (e) => {
     const file = e.target.files[0];
     if (file) {
       const reader = new FileReader();
       reader.onload = () => {
-        setBookData({ ...bookData, imageUrl: reader.result }); // Lưu ảnh dưới dạng base64
+        setBookData({ ...bookData, imageUrl: reader.result });
       };
       reader.readAsDataURL(file);
     }
@@ -17,7 +38,7 @@ function AddBook({ isEditing, bookData, setBookData, onSubmit, onClose }) {
     <div className="overlay" onClick={onClose}>
       <div
         className="modal"
-        onClick={(e) => e.stopPropagation()} // Ngăn sự kiện click thoát modal
+        onClick={(e) => e.stopPropagation()}
       >
         <div className="modal-content">
           <h3>{isEditing ? "Sửa thông tin sách" : "Thêm sách mới"}</h3>
@@ -25,8 +46,8 @@ function AddBook({ isEditing, bookData, setBookData, onSubmit, onClose }) {
             <label>Code</label>
             <input
               type="text"
-              placeholder="Mã sách"
-              value={bookData.bookCode}
+              placeholder="Book Code"
+              value={bookData.bookCode || ''}
               onChange={(e) =>
                 setBookData({ ...bookData, bookCode: e.target.value })
               }
@@ -37,7 +58,7 @@ function AddBook({ isEditing, bookData, setBookData, onSubmit, onClose }) {
             <input
               type="text"
               placeholder="Tên sách"
-              value={bookData.name}
+              value={bookData.name || ''}
               onChange={(e) =>
                 setBookData({ ...bookData, name: e.target.value })
               }
@@ -47,7 +68,7 @@ function AddBook({ isEditing, bookData, setBookData, onSubmit, onClose }) {
             <label>CreationDate</label>
             <input
               type="date"
-              value={bookData.publicationDate}
+              value={bookData.publicationDate || ''}
               onChange={(e) =>
                 setBookData({ ...bookData, publicationDate: e.target.value })
               }
@@ -58,7 +79,7 @@ function AddBook({ isEditing, bookData, setBookData, onSubmit, onClose }) {
             <input
               type="text"
               placeholder="Tác giả"
-              value={bookData.author}
+              value={bookData.author || ''}
               onChange={(e) =>
                 setBookData({ ...bookData, author: e.target.value })
               }
@@ -69,7 +90,7 @@ function AddBook({ isEditing, bookData, setBookData, onSubmit, onClose }) {
             <input
               type="number"
               placeholder="Giá"
-              value={bookData.price}
+              value={bookData.price || ''}
               onChange={(e) =>
                 setBookData({ ...bookData, price: e.target.value })
               }
@@ -80,7 +101,7 @@ function AddBook({ isEditing, bookData, setBookData, onSubmit, onClose }) {
             <input
               type="number"
               placeholder="Số trang"
-              value={bookData.numberPage}
+              value={bookData.numberPage || ''}
               onChange={(e) =>
                 setBookData({ ...bookData, numberPage: e.target.value })
               }
@@ -90,7 +111,7 @@ function AddBook({ isEditing, bookData, setBookData, onSubmit, onClose }) {
             <label>Description</label>
             <textarea
               placeholder="Mô tả ngắn"
-              value={bookData.shortDescription}
+              value={bookData.shortDescription || ''}
               onChange={(e) =>
                 setBookData({ ...bookData, shortDescription: e.target.value })
               }
@@ -101,7 +122,7 @@ function AddBook({ isEditing, bookData, setBookData, onSubmit, onClose }) {
             <input
               type="text"
               placeholder="Ngôn ngữ"
-              value={bookData.language}
+              value={bookData.language || ''}
               onChange={(e) =>
                 setBookData({ ...bookData, language: e.target.value })
               }

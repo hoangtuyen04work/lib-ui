@@ -1,17 +1,26 @@
-import axios from 'axios';
+import axios from "./customize-axios";
 
-const API_URL = '/api';
-
-export const login = (email, password) => {
-    return axios.post(`${API_URL}/login`, {
+const login = (email, password) => {
+    return axios.post(`/auth/login`, {
         email,
         password
     });
 };
 
-export const register = (email, password) => {
-    return axios.post(`${API_URL}/register`, {
+const register = (email, password) => {
+    return axios.post(`/auth/register`, {
         email,
         password
     });
 };
+
+const logout = (token, refreshToken) => {
+     return axios.post('/auth/logoutt', {
+        token: token,
+        refreshToken: refreshToken
+      });
+};
+
+
+
+export { login, register, logout};

@@ -15,7 +15,7 @@ const BookDetail = () => {
   useEffect(() => {
     const getInfo = async () => {
       const token = localStorage.getItem('token');
-      const response = await axios.get(`http://localhost:8888/lib/book/book?id=${id}`, {
+      const response = await axios.get(`http://localhost:8888/lib/book/book/${id}`, {
         headers: {
           Authorization: `Bearer ${token}`
         }
@@ -41,6 +41,7 @@ const BookDetail = () => {
           Authorization: `Bearer ${token}`
         }
       });
+      console.log(response.data.data);
       setBorrowStatus(response.data.data);
     };
     getRatings();
@@ -76,8 +77,9 @@ const BookDetail = () => {
     const userId = localStorage.getItem('id');
     try {
       const response = await axios.put(
-        `http://localhost:8888/lib/borrow/return/${userId}`,
-        [id],
+        `http://localhost:8888/lib/borrow/return/${userId}/${id}`,
+        {}
+        ,
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem('token')}`,

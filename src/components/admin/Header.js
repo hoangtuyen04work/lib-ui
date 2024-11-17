@@ -1,8 +1,17 @@
 import React from 'react';
 import '../../styles/admin/Header.scss';
 import { useNavigate } from 'react-router-dom';
+import { logout } from '../../service/authService';
 function Header({ toggleSidebar }) {
   const navigate = useNavigate();
+
+  const handleLogout = () => {
+    const token = localStorage.getItem('token');
+    const refreshToken = localStorage.getItem('refreshToken');
+    logout(token, refreshToken);
+    localStorage.clear();
+    navigate('/login');
+  }
 
   const handlePanelClick = () => {
     navigate("/admin/home");
@@ -18,7 +27,7 @@ function Header({ toggleSidebar }) {
       <input type="text" placeholder="Tìm kiếm sách..." className="search-input" />
       
       <div className="header-right">
-        <button className="logout-button">Logout</button>
+        <button className="logout-button" onClick={handleLogout}>Logout</button>
         <div className="profile">
           <img src="/logo512.png" alt="Profile" className="profile-pic" />
           <span className="profile-name">Admin</span>

@@ -1,99 +1,80 @@
 .book-detail {
-  max-width: 800px;
+  max-width: 1000px;
   margin: 20px auto;
   padding: 30px;
-  border: 1px solid #ddd;
   border-radius: 10px;
-  background-color: #f9f9f9;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  
+  background-color: #ffffff;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+
   h1 {
     font-size: 2.5rem;
     margin-bottom: 20px;
     text-align: center;
-    color: #333;
+    color: #2c3e50;
   }
 
   .book-info {
     display: flex;
     margin-bottom: 30px;
+    gap: 20px;
 
     img {
-      max-width: 200px; 
+      max-width: 200px;
       height: auto;
-      margin-right: 20px; 
-      border-radius: 8px;
-      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
     }
 
     .book-description {
       flex: 1;
       p {
         margin: 10px 0;
-        font-size: 1.1rem;
-        line-height: 1.5;
+        font-size: 1rem;
+        line-height: 1.6;
+        color: #34495e;
+
+        strong {
+          color: #2c3e50;
+        }
       }
-      .borrow-status {
-        margin-top: 10px;
-        padding: 10px;
+
+      button {
+        padding: 12px 20px;
+        margin-top: 15px;
+        font-size: 1rem;
+        border: none;
         border-radius: 5px;
-        font-weight: bold;
-      }
-      
-      .success {
-        background-color: #d4edda;
-        color: #155724;
-      }
-      
-      .error {
-        background-color: #f8d7da;
-        color: #721c24;
-      }
-      
-    }
-  }
+        cursor: pointer;
+        color: white;
+        background-color: #3498db;
+        transition: background-color 0.3s;
 
-  button {
-    padding: 12px 20px;
-    background-color: #007BFF;
-    color: white;
-    font-size: 1rem;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-
-    &:hover {
-      background-color: #0056b3;
+        &:hover {
+          background-color: #2980b9;
+        }
+      }
     }
   }
 
   form {
-    margin-top: 30px;
+    margin-top: 40px;
+    background: #f8f9fa;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 
     label {
       font-weight: bold;
-    }
-
-    select, textarea {
-      width: 100%;
-      margin-top: 10px;
-      padding: 10px;
-      border: 1px solid #ccc;
-      border-radius: 5px;
-      font-size: 1rem;
-    }
-
-    textarea {
-      height: 120px;
-      resize: vertical;
+      display: block;
+      margin-bottom: 10px;
+      font-size: 1.1rem;
+      color: #2c3e50;
     }
 
     .star-rating {
       display: flex;
-      flex-direction: row-reverse;
-      justify-content: center;
-      margin-top: 10px;
+      justify-content: space-around;
+      margin-bottom: 20px;
 
       input[type="radio"] {
         display: none;
@@ -105,19 +86,34 @@
         cursor: pointer;
         transition: color 0.2s;
 
-        &:hover, &:hover ~ label, input[type="radio"]:checked ~ label {
-          color: #ffc107;
+        &:hover,
+        &:hover ~ label,
+        input[type="radio"]:checked ~ label {
+          color: #f39c12;
         }
       }
     }
 
+    textarea {
+      width: 100%;
+      height: 100px;
+      margin-bottom: 20px;
+      padding: 10px;
+      border: 1px solid #ced4da;
+      border-radius: 5px;
+      font-size: 1rem;
+      resize: vertical;
+    }
+
     button[type="submit"] {
-      margin-top: 20px;
       width: 100%;
       padding: 12px;
       background-color: #28a745;
       color: white;
+      font-size: 1.2rem;
+      border: none;
       border-radius: 5px;
+      transition: background-color 0.3s;
 
       &:hover {
         background-color: #218838;
@@ -126,9 +122,10 @@
   }
 
   h3 {
+    font-size: 1.8rem;
     margin-top: 40px;
-    font-size: 1.5rem;
-    border-bottom: 2px solid #007BFF;
+    color: #2c3e50;
+    border-bottom: 2px solid #3498db;
     padding-bottom: 10px;
   }
 
@@ -139,15 +136,13 @@
     li {
       margin: 15px 0;
       padding: 15px;
-      border: 1px solid #ddd;
-      border-radius: 5px;
-      background-color: #f5f5f5;
+      background-color: #f7f7f7;
+      border: 1px solid #eaeaea;
+      border-radius: 10px;
       box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
 
       strong {
-        color: #007BFF;
-        display: inline-block;
-        margin-right: 5px;
+        color: #2980b9;
       }
     }
   }

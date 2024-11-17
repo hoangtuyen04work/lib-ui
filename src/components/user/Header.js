@@ -10,6 +10,7 @@ import { Client } from '@stomp/stompjs';
 import NotificationDropdown from './NotificationDropdown';
 import '../../styles/user/Header.scss';
 import SockJS from 'sockjs-client';
+import { logout } from '../../service/authService';
 const Header = ({ onCategoryChange, onSearchChange }) => {
   const [notifications, setNotifications] = useState([]);
   const navigate = useNavigate();
@@ -58,6 +59,14 @@ const Header = ({ onCategoryChange, onSearchChange }) => {
       navigate('/home');
     }
   };
+
+  const handleLogout = () => {
+    const token = localStorage.getItem('token');
+    const refreshToken = localStorage.getItem('refreshToken');
+    logout(token, refreshToken);
+     localStorage.clear();
+    navigate('/login');
+  }
 
 
   useEffect(() => {
@@ -148,14 +157,7 @@ const Header = ({ onCategoryChange, onSearchChange }) => {
         <button className="profile-btn" onClick={() => window.location.href = '/profile'}>
           My Profile
         </button>
-        <button className="logout-btn" onClick={() => {
-          axios.post('http://localhost:8888/lib/auth/logoutt', {
-            token: localStorage.getItem('token'),
-            refreshToken: localStorage.getItem('refreshToken')
-          });
-          localStorage.clear();
-          navigate('/login');
-        }}>
+        <button className="logout-btn" onClick={handleLogout}>
           Logout
         </button>
       </div>
