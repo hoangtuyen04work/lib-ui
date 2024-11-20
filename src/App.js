@@ -11,12 +11,16 @@ import AdminUsers from './pages/AdminUsers';
 import BookAdminDetail from './pages/BookDetail';
 import UserAdminDetail from './pages/UserDetail';
 import ProtectedRoute from './components/ProtectedRoute'; // Import ProtectedRoute
+import AddBook from './components/admin/AddBook';
 
 function App() {
   return (
     <Router>
       <Routes>
         {/* Routes dành cho admin */}
+
+        <Route path="/admin/book/add" element={<ProtectedRoute><AddBook /></ProtectedRoute>} />
+        <Route path="/admin/book/:id" element={<ProtectedRoute><AddBook /></ProtectedRoute>} />
         <Route path="/admin/users" element={<ProtectedRoute><AdminUsers /></ProtectedRoute>} />
         <Route path="/admin/books" element={<ProtectedRoute><AdminBooks /></ProtectedRoute>} />
         <Route path="/admin/home" element={<ProtectedRoute><AdminHome /></ProtectedRoute>} />

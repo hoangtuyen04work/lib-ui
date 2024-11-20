@@ -20,7 +20,6 @@ function AdminBooks() {
           <BookList />
         </div>
       </div>
-
     </div>
   );
 }

@@ -1,105 +1,40 @@
 import React, { useEffect, useState } from "react";
 import "../../styles/admin/BookList.scss";
 import AddBook from "./AddBook";
-import { useNavigate } from "react-router-dom";
+import { fetchBooksBasicData } from "../../service/adminApiService";
 
 function BookList() {
-  const navigate = useNavigate();
-  const [recentBooks, setRecentBooks] = useState([]);
   const [showAddBookModal, setShowAddBookModal] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
-  const [newBook, setNewBook] = useState({
-    id: null,
-    bookCode: "",
-    name: "",
-    publicationDate: "",
-    edition: "",
-    numberPage: "",
-    shortDescription: "",
-    price: "",
-    author: "",
-    imageUrl: "",
-    language: "",
-    numberBorrowed: "",
-    numberInstock: "",
-    categories: [],
-  });
+  const [bookList, setBookList] = useState([]);
+  const [bookIdSelected, setBookIdSelected] = useState();
+
+  const fetchBookBasicData = async () => {
+    const token = localStorage.getItem('token');
+    const response = await fetchBooksBasicData(token);
+    console.log(response);
+    setBookList(response.data.data.content);
+  }
 
   useEffect(() => {
-    const books = [
-      {
-        id: 1,
-        bookCode: "BC001",
-        name: "Sách 1",
-        publicationDate: "2022-01-01",
-        edition: "1st",
-        numberPage: 300,
-        shortDescription: "Một cuốn sách thú vị",
-        price: 100000,
-        author: "Phan Văn Nam",
-        imageUrl: "",
-        language: "Tiếng Việt",
-        numberBorrowed: 22,
-        numberInstock: 220,
-        categories: ['Kinh di', 'Tieu thiuey'],
-      },
-    ];
-    setRecentBooks(books);
+    fetchBookBasicData();
   }, []);
 
-  const handleAddBook = () => {
-    if (isEditing) {
-      // Chỉnh sửa sách
-      setRecentBooks(
-        recentBooks.map((book) => (book.id === newBook.id ? newBook : book))
-      );
-    } else {
-      // Thêm sách mới
-      setRecentBooks([...recentBooks, { id: recentBooks.length + 1, ...newBook }]);
-    }
-    resetModal();
-  };
-
-  const handleEditBook = (id) => {
-    const book = recentBooks.find((book) => book.id === id);
-    setNewBook(book);
-    setIsEditing(true);
-    setShowAddBookModal(true);
-  };
-
-  const handleDeleteBook = (id) => {
-    setRecentBooks(recentBooks.filter((book) => book.id !== id));
-  };
-
-  const resetModal = () => {
-    setShowAddBookModal(false);
-    setIsEditing(false);
-    setNewBook({
-      id: null,
-      bookCode: "",
-      name: "",
-      publicationDate: "",
-      edition: "",
-      numberPage: "",
-      shortDescription: "",
-      price: "",
-      author: "",
-      imageUrl: "",
-      language: "",
-      numberBorrowed: "",
-      numberInstock: "",
-      categories: [],
-    });
-  };
-
   const handleShowAddBookModal = () => {
-    resetModal();
+    setIsEditing(false);
     setShowAddBookModal(true);
+    
   };
   
   const handleBookClick = (bookId) => {
-    navigate(`/admin/book/${bookId}`);
+    setBookIdSelected(bookId);
+    setShowAddBookModal(true);
+    setIsEditing(true);
   };
+  
+  const handleOnClose = () => {
+    setShowAddBookModal(false);
+  }
 
   return (
     <div className="book-list">
@@ -114,22 +49,16 @@ function BookList() {
         <div className="header-item">Author</div>
         <div className="header-item">Price</div>
         <div className="header-item">Language</div>
-        <div className="header-item">Stock</div>
-        <div className="header-item">Action</div>
+        <div className="header-item">Borrowed</div>
       </div>
       <ul>
-        {recentBooks.map((book) => (
+        {bookList.map((book) => (
           <li key={book.id} onClick={() => handleBookClick(book.id)}>
             <div className= "item-title">{book.name}</div>
             <div className="item-author">{book.author}</div>
             <div className="item-price">{book.price} VND</div>
             <div className="item-language">{book.language}</div>
-            <div className="item-stock">{book.numberInstock}</div>
-
-            <div className="item-actions">
-              <button onClick={() => handleEditBook(book.id)}>Sửa</button>
-              <button onClick={() => handleDeleteBook(book.id)}>Xóa</button>
-            </div>
+            <div className="item-numberBorrowed">{book.numberBorrowed}</div>
           </li>
         ))}
       </ul>
@@ -137,10 +66,8 @@ function BookList() {
       {showAddBookModal && (
         <AddBook
           isEditing={isEditing}
-          bookData={newBook}
-          setBookData={setNewBook}
-          onSubmit={handleAddBook}
-          onClose={resetModal}
+          bookId={bookIdSelected}
+          onClose={handleOnClose}
         />
       )}
     </div>
