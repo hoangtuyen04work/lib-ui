@@ -13,7 +13,7 @@ function AddBook({ isEditing, bookId, onClose }) {
     shortDescription: '',
     price: '',
     author: '',
-    imageUrl: '',
+    image: '',
     language: '',
     number: '',
     categories: [],
@@ -23,19 +23,46 @@ function AddBook({ isEditing, bookId, onClose }) {
 
   const onSubmit = async () => {
     const token = localStorage.getItem("token");
-    const payload = { ...bookData };
-  
+    
+    // Transform categories for the backend
+    const payload = {
+      ...bookData,
+      categories: bookData.categories.map((cat) => {
+        if (typeof cat === "object") {
+          return { id: cat.id, category: cat.category }; // Adjust as per your DTO structure
+        }
+        return { id: null, category: cat }; // Fallback for string categories
+      }),
+    };
+    
     if (isEditing) {
+      console.log(payload);
       await updateBook(bookId, token, payload);
       alert("Book updated successfully!");
     } else {
-      console.log(payload)
+      console.log(payload);
       await createBook(token, payload);
       alert("Book created successfully!");
     }
-    window.location.reload()
-    // onClose();
+    window.location.reload();
   };
+  
+  // const onSubmit = async () => {
+  //   const token = localStorage.getItem("token");
+  //   const payload = { ...bookData };
+  
+  //   if (isEditing) {
+  //     console.log(payload);
+  //     await updateBook(bookId, token, payload);
+  //     alert("Book updated successfully!");
+  //   } else {
+  //     console.log(payload)
+  //     await createBook(token, payload);
+  //     alert("Book created successfully!");
+  //   }
+  //   window.location.reload()
+  //   // onClose();
+  // };
   
   useEffect(() => {
     const getAllCategories = async () => {
@@ -54,7 +81,7 @@ function AddBook({ isEditing, bookId, onClose }) {
           shortDescription: '',
           price: 0,
           author: '',
-          imageUrl: '',
+          image: '',
           language: '',
           number: 0,
           categories: [],
@@ -115,7 +142,7 @@ function AddBook({ isEditing, bookId, onClose }) {
       reader.onload = () => {
         setBookData((prevData) => ({
           ...prevData,
-          imageUrl: reader.result,
+          image: reader.result,
         }));
       };
       reader.readAsDataURL(file);
@@ -252,9 +279,9 @@ function AddBook({ isEditing, bookId, onClose }) {
             <label>Hình ảnh</label>
             <input type="file" accept="image/*" onChange={handleImageChange} />
           </div>
-          {bookData.imageUrl && (
+          {bookData.image && (
             <div className="image-preview">
-              <img src={bookData.imageUrl} alt="Preview" />
+              <img src={bookData.image} alt="Preview" />
             </div>
           )}
           <div className="modal-actions">

@@ -92,20 +92,41 @@ const updateBook = async (bookId, token, bookData) => {
 
 };
 
-
 const createBook = async (token, newBookData) => {
-    const formData = new FormData();
-    for (const key in newBookData) {
-        formData.append(key, newBookData[key]);
-    }
-    return axios.post(`/book/book/create`,
-        formData, {
-            headers: {
-                Authorization: `Bearer ${token}`, // Add token for authentication
-                'Content-Type': 'multipart/form-data', // Required for form data
-            },
+    try {
+        const formData = new FormData();
+        for (const key in newBookData) {
+            if (key === "categories") {
+                newBookData[key].forEach((category, index) => {
+                    formData.append(`categories[${index}].id`, category.id);
+                    formData.append(`categories[${index}].category`, category.category);
+                });
+            } else if (key === "image" && newBookData[key] instanceof File) {
+                formData.append(key, newBookData[key]); // Attach file directly
+            } else {
+                formData.append(key, newBookData[key]);
+            }
         }
-    );
+
+        // Debugging FormData
+        for (let pair of formData.entries()) {
+            console.log(`${pair[0]}: ${pair[1]}`);
+        }
+
+        return await axios.post(
+            `/book/book/create`,
+            formData,
+            {
+                headers: {
+                    Authorization: `Bearer ${token}`, // Add token for authentication
+                    'Content-Type': 'multipart/form-data', // Required for FormData
+                },
+            }
+        );
+    } catch (error) {
+        console.error("Error creating book:", error);
+        throw error; // Re-throw the error for further handling
+    }
 };
 
 export {
