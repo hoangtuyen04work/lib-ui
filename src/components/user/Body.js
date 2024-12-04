@@ -2,18 +2,15 @@ import React, { useState, useEffect } from 'react';
 import '../../styles/user/UserHome.scss';
 import axios from 'axios';
 import BookItem from './BookItem'; // Import the new BookItem component
-
+import { fetchListBook } from '../../service/userApiService';
 const Body = ({ category, searchResult, isSearch }) => {
   const [bookData, setBookData] = useState([]);
 
   useEffect(() => {
     const getBook = async () => {
       try {
-        const response = await axios.get(`http://localhost:8888/lib/book/book/top?typeId=${category}`, {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem('token')}`,
-          },
-        });
+        const token = localStorage.getItem('token');
+        const response = await fetchListBook(token, category);
         setBookData(response.data.data.content);
       } catch (error) {
         console.error('Error fetching book data:', error);
