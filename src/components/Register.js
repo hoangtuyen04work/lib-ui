@@ -34,24 +34,21 @@ const Register = () => {
     formData.append('roles', roles);  // Giả sử roles là danh sách
     try {
       const response = await axios.post('http://localhost:8888/lib/auth/signup', formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
+          headers: { 'Content-Type': 'multipart/form-data' },
       });
-      const { token, refreshToken, email: responseEmail, imageUrl, name, id, roles} = response.data.data;      
-      localStorage.setItem('token', token);
-      localStorage.setItem('refreshToken', refreshToken);
-      localStorage.setItem('email', responseEmail);
-      localStorage.setItem('imageUrl', imageUrl);
-      localStorage.setItem('name', name);
-      localStorage.setItem('id', id);
-      localStorage.setItem('roles', roles);
-
-      if (roles.roleName === "ADMIN") navigate('/admin/home');
-      else navigate('/home');
-    } catch (error) {
-      setError('Đăng ký không thành công.');
-    }
+      console.log('Đăng ký thành công:', response.data);
+  } catch (error) {
+      if (error.response) {
+          // Hiển thị thông báo lỗi từ backend
+          console.error('Lỗi từ server:', error.response.data.message);
+          setError(error.response.data.message);
+      } else {
+          // Xử lý lỗi khác
+          console.error('Lỗi kết nối:', error.message);
+          setError('Đã xảy ra lỗi, vui lòng thử lại sau.');
+      }
+  }
+  
   };
 
   return (

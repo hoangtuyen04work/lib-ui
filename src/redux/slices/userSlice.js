@@ -1,52 +1,46 @@
-import { createSlice, createAsyncThunk} from "@reduxjs/toolkit";
-import {login} from '../../service/authService'
-const initialState = {
-    userName: "",
-    token: "",
-    refreshToken: "",
-    roles: []
-}
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { login } from "../../service/authService";
 
-// export const loginUser = createAsyncThunk(
-//     'user/login',
-//     async ({ email, password }, thunkAPI) => {
-//         console.log("login >>", email, password);
-//         const response = await login(email, password);
-//         return response;
-//     }
-// )
+const initialState = {
+  isAuthenticated: false,
+  userInfo: null,
+};
+
 export const loginUser = createAsyncThunk(
-    'user/login',
-    async ({ email, password }, thunkAPI) => {
-        console.log("login >>", email, password);
-        try {
-            const response = await login(email, password);
-            return response; // Nếu thành công, trả về dữ liệu
-        } catch (error) {
-            // Nếu có lỗi, ném ra lỗi để `rejected` có thể xử lý
-            return thunkAPI.rejectWithValue(error.message);
-        }
+  "user/login",
+  async ({ email, password }, thunkAPI) => {
+    try {
+      const response = await login(email, password);
+      return response.data;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.response?.data || error.message);
     }
+  }
 );
 
-export const userSlice = createSlice({
-    name: "user",
-    initialState,
-    reducers: {
-    },
-    extraReducers: (builder) => {
-        builder
-            .addCase(loginUser.pending, (state, action) => {
-                console.log("pedding");
-            })
-            .addCase(loginUser.fulfilled, (state, action) => {
-                console.log("fulfield>>", action.payload);
-            })
-            .addCase(loginUser.rejected, (state, action) => {
-                console.log("rejst");
-            })
-    }
-})
+export const updateToken = createAsyncThunk(
+  "user/updateToken",
+  async ({ accessToken }, thunkAPI) => {
+    return { accessToken };
+  }
+);
 
-export default userSlice.reducer
+const userSlice = createSlice({
+  name: "user",
+  initialState,
+  reducers: {},
+  extraReducers: (builder) => {
+    builder
+      .addCase(loginUser.fulfilled, (state, action) => {
+        state.isAuthenticated = true;
+        state.userInfo = action.payload.data;
+      })
+      .addCase(updateToken.fulfilled, (state, action) => {
+        if (state.userInfo) {
+          state.userInfo.accessToken = action.payload.accessToken;
+        }
+      });
+  },
+});
 
+export default userSlice.reducer;

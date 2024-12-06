@@ -1,15 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import '../../styles/user/UserHome.scss';
-import axios from 'axios';
 import BookItem from './BookItem'; // Import the new BookItem component
 import { fetchListBook } from '../../service/userApiService';
+import { useSelector } from 'react-redux';
+
 const Body = ({ category, searchResult, isSearch }) => {
   const [bookData, setBookData] = useState([]);
+  const token = useSelector((state) => state.userInfo.token);
 
   useEffect(() => {
     const getBook = async () => {
       try {
-        const token = localStorage.getItem('token');
         const response = await fetchListBook(token, category);
         setBookData(response.data.data.content);
       } catch (error) {

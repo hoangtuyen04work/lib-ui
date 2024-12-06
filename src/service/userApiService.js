@@ -15,8 +15,24 @@ const fetchListBook = (token, category) => {
         },
     });
 }
+const fetchAllType = (token) => {
+    return axios.get(`/book/category/all`, {
+        headers: {
+            Authorization: `Bearer ${token}`, // Thêm token vào headers
+        },
+    });
+}
 
+const searchBook = (token, name) => {
+    return axios.get(`search/search?name=${name}`, {
+        headers: {
+            Authorization: `Bearer ${token}`, // Thêm token vào headers
+        },
+    });
+}
 export {
     fetchBookDetailData,
-    fetchListBook
+    fetchListBook,
+    fetchAllType,
+    searchBook
 };

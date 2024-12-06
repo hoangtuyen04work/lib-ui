@@ -11,6 +11,9 @@ import NotificationDropdown from './NotificationDropdown';
 import '../../styles/user/Header.scss';
 import SockJS from 'sockjs-client';
 import { logout } from '../../service/authService';
+import {fetchAllType, searchBook} from '../../service/userApiService'
+import { useSelector } from 'react-redux';
+
 const Header = ({ onCategoryChange, onSearchChange }) => {
   const [notifications, setNotifications] = useState([]);
   const navigate = useNavigate();
@@ -19,18 +22,13 @@ const Header = ({ onCategoryChange, onSearchChange }) => {
   const [listCategory, setListCategory] = useState([]);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [numberNotification, setNumberNotification] = useState(1);
+  const token = useSelector((state) => state.userInfo.token);
+  const userId = useSelector((state)=> state.userInfo.id)
   // Handle search submit when the search icon is clicked
   const handleSearchSubmit = async () => {
     if (search.trim() !== "") {
       try {
-        const token = localStorage.getItem('token');
-        console.log("seatch:", search)
-        const response = await axios.get(`http://localhost:8888/lib/search/search?name=${search}`, {
-          headers: {
-            Authorization: `Bearer ${token}`
-          }
-        });
-        console.log("res", response);
+        const response = await searchBook(token, search);
         onSearchChange(response.data.data.content); // Pass search results to parent component
       } catch (error) {
         console.error("Error fetching search results:", error);
@@ -72,20 +70,13 @@ const Header = ({ onCategoryChange, onSearchChange }) => {
   useEffect(() => {
     const getAllType = async () => {
       try {
-        const token = localStorage.getItem('token');
-        const response = await axios.get('http://localhost:8888/lib/book/category/all', {
-          headers: {
-            Authorization: `Bearer ${token}`
-          }
-        });
+        const response = await fetchAllType(token);
         setListCategory(response.data.data);
       } catch (error) {
         console.error("Error fetching categories:", error);
       }
     };
     getAllType();
-    const token = localStorage.getItem('token');
-    const userId = localStorage.getItem('id');
     const socket = new SockJS('http://localhost:8087/notify/notify/websocket', null, {
       withCredentials: true,
     });
